@@ -1,0 +1,35 @@
+/**:
+  ros__parameters:
+    bcap_slave_control_cycle_sec: 0.008
+    robot_description_planning:
+      joint_limits:
+        joint_1:
+          has_velocity_limits: true
+          max_velocity: 0.4031
+          has_acceleration_limits: true
+          max_acceleration: 2.094
+        joint_2:
+          has_velocity_limits: true
+          max_velocity:  0.3921
+          has_acceleration_limits: true
+          max_acceleration: 2.094
+        joint_3:
+          has_velocity_limits: true
+          max_velocity: 0.7257
+          has_acceleration_limits: true
+          max_acceleration: 3.49065
+        joint_4:
+          has_velocity_limits: true
+          max_velocity: 0.7391
+          has_acceleration_limits: true
+          max_acceleration: 4.71238
+        joint_5:
+          has_velocity_limits: true
+          max_velocity: 0.73914
+          has_acceleration_limits: true
+          max_acceleration: 4.71238
+        joint_6:
+          has_velocity_limits: true
+          max_velocity: 1.10933
+          has_acceleration_limits: true
+          max_acceleration: 6.98131
