@@ -17,6 +17,7 @@ ENV XDG_RUNTIME_DIR $XDG_RUNTIME_DIR
 ENV PULSE_SERVER $PULSE_SERVER
 ENV __NV_PRIME_RENDER_OFFLOAD 1
 ENV __GLX_VENDOR_LIBRARY_NAME nvidia
+ENV ROS_DISTRO=humble
 
 # setting time zone
 RUN apt update && apt install -y --no-install-recommends tzdata
@@ -33,12 +34,14 @@ RUN apt update -y && apt upgrade -y && apt install -y --no-install-recommends \
     build-essential \
     libgl1-mesa-dev \
     nvidia-settings \
+    libeigen3-dev \
     nvidia-prime \
     lsb-release \
     libudev-dev \
     imagemagick \
     python3-pip \
     python3-tk \
+    pkg-config \
     mesa-utils \
     net-tools \
     aptitude \
@@ -74,6 +77,8 @@ RUN add-apt-repository ppa:kisak/kisak-mesa -y && apt update -y
 RUN apt install -y --no-install-recommends \
     python3-colcon-common-extensions \
     python3-colcon-mixin \
+    python3-vcstool \
+    python3-rosdep \
     ros-humble-desktop \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-ament-cmake \
@@ -83,6 +88,8 @@ RUN apt install -y --no-install-recommends \
     ros-humble-moveit* \
     ros-humble-ros2-control \
     ros-humble-ros2-controllers \
+    ros-humble-eigenpy \
+    ros-humble-ros-testing \
     ros-dev-tools \
     gazebo \
     && echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
@@ -105,8 +112,9 @@ WORKDIR /root/ros2_ws
 COPY ./denso_robot_drivers_ros2.repos /root/denso_robot_drivers_ros2.repos
 RUN vcs import src --skip-existing --input /root/denso_robot_drivers_ros2.repos
 COPY ./ros2_ws/src /root/ros2_ws/src
-RUN rosdep init && rosdep update && rosdep install --ignore-src --from-paths src -y -r
+RUN rosdep init && rosdep update && rosdep install --ignore-src --from-paths src -y -r --rosdistro=$ROS_DISTRO
 
 # Generates bash commands
 WORKDIR /root/ros2_ws/src/
 RUN echo "ros2 launch denso_robot_bringup denso_robot_bringup.launch.py model:=cobotta sim:=false ip_address:=192.168.0.1 send_format:=0 recv_format:=2" >> ~/.bash_history
+RUN echo "ros2 run cobotta_tutorials hello_moveit.py" >> ~/.bash_history

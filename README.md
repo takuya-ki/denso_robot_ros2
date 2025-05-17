@@ -40,3 +40,6 @@
     ```bash
     ros2 launch denso_robot_bringup denso_robot_bringup.launch.py model:=cobotta sim:=false ip_address:=192.168.0.1 send_format:=0 recv_format:=2
     ```
+    ```bash
+    ros2 run cobotta_tutorials hello_moveit.py
+    ```
