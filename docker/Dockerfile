@@ -25,34 +25,22 @@ ENV TZ=Asia/Tokyo
 
 RUN apt update -y && apt upgrade -y && apt install -y --no-install-recommends \
     software-properties-common \
-    texlive-fonts-recommended \
-    texlive-latex-extra \
-    iputils-ping net-tools \
     libxkbcommon-x11-0 \
-    gnome-screenshot \
-    libcanberra-gtk* \
     build-essential \
     libgl1-mesa-dev \
-    nvidia-settings \
     libeigen3-dev \
-    nvidia-prime \
+    iputils-ping \
     lsb-release \
     libudev-dev \
-    imagemagick \
     python3-pip \
     python3-tk \
     pkg-config \
     mesa-utils \
     net-tools \
-    aptitude \
     xorg-dev \
     x11-apps \
     libfuse2 \
-    cm-super \
-    texlive \
     libxcb* \
-    dvipng \
-    unzip \
     gnupg \
     byobu \
     cmake \
@@ -96,7 +84,6 @@ RUN apt install -y --no-install-recommends \
 
 RUN /bin/bash -c "colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update default"
 
-RUN mkdir -p /tmp/
 RUN mkdir -p /root/ros2_ws/src
 WORKDIR /root/ros2_ws
 RUN	/bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
